@@ -6,41 +6,44 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
     let todosResultados = [];
 
-    const [numeros, setNumeros] = useState([]);
+    const [numeros, setNumeros] = useState([1, 10, 20, 30, 40, 50]);
 
     // const [totalAcertos, setTotalAcertos] = useState();
     // const [numerosJogados, setNumerosJogados] = useState();
     // const [numerosSorteados, setNumerosSorteados] = useState();
 
     const changeNumeros = (e, index) => {
-        numeros[index] = parseInt(e.target.value);
-        setNumeros(numeros);
+        // numeros[index] = parseInt(e.target.value);
+        // setNumeros(numeros);
     };
 
     const jogar = (e) => {
-        let resultados = [];
-        for (let index = 0; index < 6; index++) {
-            let numeroSorteado = sortearNumero(resultados);
-            resultados.push({
-                numeroSorteado: numeroSorteado,
-                isCerto: _.includes(numeros, numeroSorteado),
-            });
+        let ganhou = false;
+
+        while (!ganhou) {
+            let resultados = [];
+            for (let index = 0; index < 6; index++) {
+                let numeroSorteado = sortearNumero(resultados);
+                resultados.push({
+                    numeroSorteado: numeroSorteado,
+                    isCerto: _.includes(numeros, numeroSorteado),
+                });
+            }
+
+            ganhou = calcularResultado(resultados);
         }
-        let ganhou = calcularResultado(resultados);
-        if (ganhou) {
-            exibirResultados();
-        } else {
-            jogar();
-        }
+
+        exibirResultados();
     };
 
     const sortearNumero = (resultados) => {
-        let numeroSorteado = _.random(1, 60);
-        if (!_.includes(_.map(resultados, "numeroSorteado"), numeroSorteado)) {
-            return numeroSorteado;
-        } else {
-            return sortearNumero(resultados);
-        }
+        let numerosSorteados = _.map(resultados, "numeroSorteado");
+
+        do {
+            var numeroSorteado = _.random(1, 60);
+        } while (_.includes(numerosSorteados, numeroSorteado));
+
+        return numeroSorteado;
     };
 
     const calcularResultado = (resultados) => {
@@ -92,6 +95,7 @@ function App() {
                     <div className="input-group input-group-lg">
                         <input
                             type="text"
+                            value="5"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -99,6 +103,7 @@ function App() {
                         />
                         <input
                             type="text"
+                            value="10"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -106,6 +111,7 @@ function App() {
                         />
                         <input
                             type="text"
+                            value="20"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -113,6 +119,7 @@ function App() {
                         />
                         <input
                             type="text"
+                            value="30"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -120,6 +127,7 @@ function App() {
                         />
                         <input
                             type="text"
+                            value="40"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -127,6 +135,7 @@ function App() {
                         />
                         <input
                             type="text"
+                            value="50"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
