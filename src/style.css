@@ -2,6 +2,29 @@
     max-width: 970px;
 }
 
+/* megasena */
+.meg__container {
+    width: 450px;
+    border: 1px solid black;
+}
+
+.meg__header {
+    height: 40px;
+    /* border-bottom: black solid 1px; */
+}
+
+.meg__conteudo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.meg__cel {
+    border: black 1px solid;
+    height: 35px;
+    flex: 1;
+}
+
 /* loader */
 .loader {
     height: 100%;

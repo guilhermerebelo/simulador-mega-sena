@@ -3,6 +3,7 @@ import _ from "lodash";
 import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
 import Loader from "./Loader";
+import Megasena from "./Megasena";
 
 function App() {
     const [numeros, setNumeros] = useState([1, 10, 20, 30, 40, 50]);
@@ -52,6 +53,7 @@ function App() {
     return (
         <>
             {tracker && <Loader />}
+            <Megasena />
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="collapse navbar-collapse">
