@@ -4,63 +4,42 @@ import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
-    let todosResultados = [];
-
     const [numeros, setNumeros] = useState([1, 10, 20, 30, 40, 50]);
-
-    // const [totalAcertos, setTotalAcertos] = useState();
-    // const [numerosJogados, setNumerosJogados] = useState();
-    // const [numerosSorteados, setNumerosSorteados] = useState();
+    const [totalJogadas, setTotalJogadas] = useState(0);
 
     const changeNumeros = (e, index) => {
-        // numeros[index] = parseInt(e.target.value);
-        // setNumeros(numeros);
+        numeros[index] = parseInt(e.target.value);
+        setNumeros(numeros);
     };
 
     const jogar = (e) => {
         let ganhou = false;
+        let contadorJogadas = 0;
 
         while (!ganhou) {
+            contadorJogadas++;
             let resultados = [];
+
             for (let index = 0; index < 6; index++) {
                 let numeroSorteado = sortearNumero(resultados);
-                resultados.push({
-                    numeroSorteado: numeroSorteado,
-                    isCerto: _.includes(numeros, numeroSorteado),
-                });
+
+                if (numeros.includes(numeroSorteado)) {
+                    resultados.push(true);
+                }
             }
 
-            ganhou = calcularResultado(resultados);
+            ganhou = resultados.length === 6;
         }
 
-        exibirResultados();
+        setTotalJogadas(contadorJogadas);
     };
 
     const sortearNumero = (resultados) => {
-        let numerosSorteados = _.map(resultados, "numeroSorteado");
-
         do {
             var numeroSorteado = _.random(1, 60);
-        } while (_.includes(numerosSorteados, numeroSorteado));
+        } while (resultados.includes(numeroSorteado));
 
         return numeroSorteado;
-    };
-
-    const calcularResultado = (resultados) => {
-        todosResultados.push(resultados);
-        return (
-            _.filter(resultados, (resultado) => resultado.isCerto).length === 6
-        );
-    };
-
-    const exibirResultados = () => {
-        console.log(`total acertos: ${todosResultados.length}`);
-
-        limparResultados();
-    };
-
-    const limparResultados = () => {
-        todosResultados = [];
     };
 
     return (
@@ -95,7 +74,6 @@ function App() {
                     <div className="input-group input-group-lg">
                         <input
                             type="text"
-                            value="5"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -103,7 +81,6 @@ function App() {
                         />
                         <input
                             type="text"
-                            value="10"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -111,7 +88,6 @@ function App() {
                         />
                         <input
                             type="text"
-                            value="20"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -119,7 +95,6 @@ function App() {
                         />
                         <input
                             type="text"
-                            value="30"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -127,7 +102,6 @@ function App() {
                         />
                         <input
                             type="text"
-                            value="40"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -135,7 +109,6 @@ function App() {
                         />
                         <input
                             type="text"
-                            value="50"
                             className="col-md-2 form-control"
                             aria-label="Exemplo do tamanho do input"
                             aria-describedby="inputGroup-sizing-lg"
@@ -152,11 +125,26 @@ function App() {
                         </button>
                     </div>
 
-                    {/* <div className="">
-                        <p>{totalAcertos}</p>
-                        <p>{numerosJogados}</p>
-                        <p>{numerosSorteados}</p>
-                    </div> */}
+                    <br />
+                    <div style={{ display: totalJogadas ? "block" : "none" }}>
+                        <p>
+                            Você precisaria de{" "}
+                            {totalJogadas.toLocaleString("pt-BR")} jogadas para
+                            ganhar com esses números
+                        </p>
+                        <p>
+                            Você gastaria{" "}
+                            {(totalJogadas * 4.5).toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                            })}{" "}
+                            para ganhar na mega sena
+                        </p>
+                        {/* <p>
+                            Voce precisaria de tantos anos para ganhar na mega
+                            sena
+                        </p> */}
+                    </div>
                 </section>
             </div>
         </>
