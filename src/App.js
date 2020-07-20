@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import _ from "lodash";
 import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
+import Loader from "./Loader";
 
 function App() {
     const [numeros, setNumeros] = useState([1, 10, 20, 30, 40, 50]);
     const [totalJogadas, setTotalJogadas] = useState(0);
+    const [tracker, setTracker] = useState(false);
 
     const changeNumeros = (e, index) => {
         numeros[index] = parseInt(e.target.value);
@@ -13,25 +15,30 @@ function App() {
     };
 
     const jogar = (e) => {
-        let ganhou = false;
-        let contadorJogadas = 0;
+        setTracker(true);
 
-        while (!ganhou) {
-            contadorJogadas++;
-            let resultados = [];
+        setTimeout(() => {
+            let ganhou = false;
+            let contadorJogadas = 0;
 
-            for (let index = 0; index < 6; index++) {
-                let numeroSorteado = sortearNumero(resultados);
+            while (!ganhou) {
+                contadorJogadas++;
+                let resultados = [];
 
-                if (numeros.includes(numeroSorteado)) {
-                    resultados.push(true);
+                for (let index = 0; index < 6; index++) {
+                    let numeroSorteado = sortearNumero(resultados);
+
+                    if (numeros.includes(numeroSorteado)) {
+                        resultados.push(true);
+                    }
                 }
+
+                ganhou = resultados.length === 6;
             }
 
-            ganhou = resultados.length === 6;
-        }
-
-        setTotalJogadas(contadorJogadas);
+            setTotalJogadas(contadorJogadas);
+            setTracker(false);
+        }, 1000);
     };
 
     const sortearNumero = (resultados) => {
@@ -44,6 +51,7 @@ function App() {
 
     return (
         <>
+            {tracker && <Loader />}
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="collapse navbar-collapse">
@@ -62,9 +70,7 @@ function App() {
                     </div>
                 </nav>
             </div>
-
             <div style={{ height: 120 }}></div>
-
             <div className="container">
                 <section>
                     <p className="font-weight-light">
