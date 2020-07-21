@@ -4,12 +4,15 @@
 
 /* megasena */
 .meg__container {
-    width: 450px;
-    border: 1px solid black;
+    width: 550px;
+    border: 1px solid rgb(233, 233, 233);
 }
 
 .meg__header {
-    height: 40px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     /* border-bottom: black solid 1px; */
 }
 
@@ -20,9 +23,27 @@
 }
 
 .meg__cel {
-    border: black 1px solid;
-    height: 35px;
+    border: none;
+    height: 40px;
     flex: 1;
+    background-color: rgb(240, 240, 240);
+    margin: 5px;
+    border: 3px solid rgb(240, 240, 240);
+}
+
+.meg__cel_mark {
+    border: 3px solid rgb(255, 208, 0) !important;
+    background-color: rgb(224, 224, 224);
+}
+
+.meg__cel:hover {
+    transition: 0.2s;
+    background-color: rgb(224, 224, 224);
+}
+
+.meg__cel:focus,
+.meg__cel:focus {
+    outline: none;
 }
 
 /* loader */
