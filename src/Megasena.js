@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
-import _ from "lodash";
+import _, { parseInt } from "lodash";
 
 // https://www.google.com/search?q=mega+sena&safe=off&sxsrf=ALeKk02fWi7rTN63Jn-5RYnCZZNzQpzDHg:1595305594727&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjN1pu6wN3qAhUDJrkGHQ7CB5sQ_AUoBHoECBEQBg&biw=1360&bih=657#imgrc=1oeysmELaztvBM
 
@@ -16,8 +16,10 @@ function Megasena(props) {
 
     const [numeros, setNumeros] = useState([]);
 
+    props.numerosSelecionados(numeros);
+
     const selecionar = (e) => {
-        let numero = e.target.innerText;
+        let numero = parseInt(e.target.innerText);
 
         numeros.includes(numero)
             ? removerNumero(e, numero)
@@ -48,11 +50,11 @@ function Megasena(props) {
     }
 
     const buildGame = () => {
-        return _.map(_.range(config.linhas), (line) => {
+        return _.range(config.linhas).map((line) => {
             return (
                 <>
                     <div className="row meg__conteudo">
-                        {_.map(_.range(config.colunas), (cel) => {
+                        {_.range(config.colunas).map((cel) => {
                             return (
                                 <>
                                     <button
@@ -82,7 +84,6 @@ function Megasena(props) {
                     </h4>
                 </div>
                 <div>{buildGame()}</div>
-                dasd {numeros}
             </div>
         </>
     );

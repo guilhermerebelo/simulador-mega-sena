@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import _ from "lodash";
+import _, { parseInt } from "lodash";
 import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
 import Loader from "./Loader";
 import Megasena from "./Megasena";
 
 function App() {
-    const [numeros, setNumeros] = useState([1, 10, 20, 30, 40, 50]);
+    const [numeros, setNumeros] = useState([]);
     const [totalJogadas, setTotalJogadas] = useState(0);
     const [tracker, setTracker] = useState(false);
-
-    const changeNumeros = (e, index) => {
-        numeros[index] = parseInt(e.target.value);
-        setNumeros(numeros);
-    };
 
     const jogar = (e) => {
         setTracker(true);
@@ -50,10 +45,13 @@ function App() {
         return numeroSorteado;
     };
 
+    const changeNumeros = (numerosSelecionados) => {
+        setNumeros(numerosSelecionados);
+    };
+
     return (
         <>
             {tracker && <Loader />}
-            <Megasena />
             <div className="container">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="collapse navbar-collapse">
@@ -72,60 +70,12 @@ function App() {
                     </div>
                 </nav>
             </div>
-            <div style={{ height: 120 }}></div>
+            <Megasena numerosSelecionados={changeNumeros} />
             <div className="container">
                 <section>
-                    <p className="font-weight-light">
-                        JOGUE 6 NÚMEROS E TENTE A SORTE!
-                    </p>
-                    <br />
-                    <div className="input-group input-group-lg">
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 0)}
-                        />
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 1)}
-                        />
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 2)}
-                        />
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 3)}
-                        />
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 4)}
-                        />
-                        <input
-                            type="text"
-                            className="col-md-2 form-control"
-                            aria-label="Exemplo do tamanho do input"
-                            aria-describedby="inputGroup-sizing-lg"
-                            onChange={(e) => changeNumeros(e, 5)}
-                        />
-                    </div>
-                    <br />
                     <div className="mx-auto" style={{ width: 120 }}>
                         <button
+                            disabled={numeros.length < 6}
                             onClick={jogar}
                             className="btn btn-success btn-block"
                         >
