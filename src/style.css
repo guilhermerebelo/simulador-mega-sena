@@ -4,7 +4,7 @@
 
 /* megasena */
 .meg__container {
-    width: 550px;
+    min-width: 550px;
     border: 1px solid rgb(233, 233, 233);
 }
 
@@ -61,3 +61,8 @@ svg path,
 svg rect {
     fill: #349f00;
 }
+
+/* Toastify */
+.Toastify__toast--success {
+    background: #218838 !important;
+ }

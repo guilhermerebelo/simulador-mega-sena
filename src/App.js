@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import _, { parseInt } from "lodash";
+import _ from "lodash";
+
 import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
+
+
+import ModalComoFunciona from "./ModalComoFunciona";
+import ModalConfigurar from "./ModalConfigurar";
 import Loader from "./Loader";
 import Megasena from "./Megasena";
 
@@ -57,15 +62,11 @@ function App() {
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    como funciona
-                                </a>
+                                <ModalConfigurar className="nav-link"/>
                             </li>
-                            {/* <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    <FaGithub />
-                                </a>
-                            </li> */}
+                            <li className="nav-item">
+                                <ModalComoFunciona className="nav-link"/>
+                            </li>
                         </ul>
                     </div>
                 </nav>
