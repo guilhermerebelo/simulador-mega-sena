@@ -4,13 +4,14 @@ import _ from "lodash";
 import { FaGithub } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
 
-
+import TIPOS_CONFIGURACAO from "./configuracaoService";
 import ModalComoFunciona from "./ModalComoFunciona";
 import ModalConfigurar from "./ModalConfigurar";
 import Loader from "./Loader";
 import Megasena from "./Megasena";
 
 function App() {
+    const [tipoConfiguracao, setTipoConfiguracao] = useState('MEGA_SENA');
     const [numeros, setNumeros] = useState([]);
     const [totalJogadas, setTotalJogadas] = useState(0);
     const [tracker, setTracker] = useState(false);
@@ -50,10 +51,6 @@ function App() {
         return numeroSorteado;
     };
 
-    const changeNumeros = (numerosSelecionados) => {
-        setNumeros(numerosSelecionados);
-    };
-
     return (
         <>
             {tracker && <Loader />}
@@ -62,7 +59,7 @@ function App() {
                     <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <ModalConfigurar className="nav-link"/>
+                                <ModalConfigurar setConfiguracao={setTipoConfiguracao} className="nav-link"/>
                             </li>
                             <li className="nav-item">
                                 <ModalComoFunciona className="nav-link"/>
@@ -71,12 +68,12 @@ function App() {
                     </div>
                 </nav>
             </div>
-            <Megasena numerosSelecionados={changeNumeros} />
+            <Megasena config={TIPOS_CONFIGURACAO[tipoConfiguracao]} numerosSelecionados={setNumeros} />
             <div className="container">
                 <section>
                     <div className="mx-auto" style={{ width: 120 }}>
                         <button
-                            disabled={numeros.length < 6}
+                            disabled={numeros.length < TIPOS_CONFIGURACAO[tipoConfiguracao].maximoSelecionados}
                             onClick={jogar}
                             className="btn btn-success btn-block"
                         >

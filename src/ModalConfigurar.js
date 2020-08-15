@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Modal from "./Modal";
+import TIPOS_CONFIGURACAO from "./configuracaoService";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CONFIG_TOAST = {
-    position: "bottom-left",
+    position: "bottom-right",
     autoClose: 2000,
-    hideProgressBar: true,
+    hideProgressBar: false,
     closeOnClick: false,
 };
 
 function ModalComoFunciona(props) {
+    const [configuracao, setConfiguracao] = useState('MEGA_SENA');
     const [isModalOpen, toggleModal] = useState(false);
 
     const salvar = () => {
         toast.success("Configuração salva!", CONFIG_TOAST);
+        props.setConfiguracao(configuracao)
     };
 
     return (
@@ -25,38 +28,36 @@ function ModalComoFunciona(props) {
             <Modal isOpen={isModalOpen} toggle={toggleModal}>
                 <h4>Configurar</h4>
                 <br />
-                <div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="jogatina"
-                            id="jogatina1"
-                            defaultValue="option1"
-                            defaultChecked
-                        />
-                        <label className="form-check-label" htmlFor="jogatina1">
-                            Megasena
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="jogatina"
-                            id="jogatina2"
-                            defaultValue="option2"
-                        />
-                        <label className="form-check-label" htmlFor="jogatina2">
-                            Lotofacil
-                        </label>
-                    </div>
-                </div>
+                {Object.values(TIPOS_CONFIGURACAO).map((item, index) => {
+                    return (
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="jogatina"
+                                id={`jogatina${index}`}
+                                onClick={() =>
+                                    setConfiguracao(item.key)
+                                }
+                                defaultValue="option1"
+                                defaultChecked={index === 0}
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor={`jogatina${index}`}
+                            >
+                                {item.descricao}
+                            </label>
+                        </div>
+                    );
+                })}
+
                 <br />
                 <div>
                     <button
                         type="button"
                         class="btn btn-success"
+                        // disabled={!configuracao}
                         onClick={salvar}
                     >
                         Salvar

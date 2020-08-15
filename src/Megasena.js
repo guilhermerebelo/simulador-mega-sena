@@ -18,6 +18,10 @@ function Megasena(props) {
 
     props.numerosSelecionados(numeros);
 
+    useEffect(() => {
+        resetSelecionados();
+    }, [config]);
+
     const selecionar = (e) => {
         let numero = parseInt(e.target.innerText);
 
@@ -25,6 +29,22 @@ function Megasena(props) {
             ? removerNumero(e, numero)
             : numeros.length < config.maximoSelecionados &&
               incluirNumero(e, numero);
+    };
+
+    const resetSelecionados = () => {
+        setNumeros([]);
+
+        let cels = document.querySelectorAll(".meg__cel_mark");
+
+        if (cels.length) {
+            cels.forEach((node) => {
+                let styleClass = node
+                    .getAttribute("class")
+                    .replace("meg__cel_mark", "");
+
+                node.setAttribute("class", styleClass);
+            });
+        }
     };
 
     function removerNumero(e, numero) {
@@ -84,6 +104,7 @@ function Megasena(props) {
                     </h4>
                 </div>
                 <div>{buildGame()}</div>
+                <div>{numeros}</div>
             </div>
         </>
     );
