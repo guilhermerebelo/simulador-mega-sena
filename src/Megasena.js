@@ -5,14 +5,8 @@ import _, { parseInt } from "lodash";
 
 // https://www.google.com/search?q=mega+sena&safe=off&sxsrf=ALeKk02fWi7rTN63Jn-5RYnCZZNzQpzDHg:1595305594727&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjN1pu6wN3qAhUDJrkGHQ7CB5sQ_AUoBHoECBEQBg&biw=1360&bih=657#imgrc=1oeysmELaztvBM
 
-const MEGA_SENA = {
-    maximoSelecionados: 6,
-    linhas: 6,
-    colunas: 10,
-};
-
 function Megasena(props) {
-    let config = props.config || MEGA_SENA;
+    let config = props.config;
 
     const [numeros, setNumeros] = useState([]);
 
@@ -65,26 +59,22 @@ function Megasena(props) {
         setNumeros((n) => [...n, numero]);
     }
 
-    function indexCel(line, cel) {
-        return parseInt(`${line}${cel}`) + 1;
-    }
-
     const buildGame = () => {
+        let counter = 0;
+
         return _.range(config.linhas).map((line) => {
             return (
                 <>
                     <div className="row meg__conteudo">
                         {_.range(config.colunas).map((cel) => {
+                            counter++;
                             return (
                                 <>
                                     <button
-                                        className={`meg__cel meg__cel_${indexCel(
-                                            line,
-                                            cel
-                                        )}`}
+                                        className={`meg__cel meg__cel_${counter}`}
                                         onClick={selecionar}
                                     >
-                                        {indexCel(line, cel)}
+                                        {counter}
                                     </button>
                                 </>
                             );
