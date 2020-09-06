@@ -5,11 +5,14 @@ import { FaArrowDown } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
 
 import TIPOS_CONFIGURACAO from "./configuracaoService";
-import ModalComoFunciona from "./ModalComoFunciona";
-import ModalConfigurar from "./ModalConfigurar";
+
 import Loader from "./Loader";
+import NavBar from "./NavBar";
 import Megasena from "./Megasena";
 import Resultado from "./Resultado";
+
+const PRIMEIRA_PAGINA = 0;
+const SEGUNDA_PAGINA = 9999;
 
 function App() {
     const [tipoConfiguracao, setTipoConfiguracao] = useState("MEGA_SENA");
@@ -82,96 +85,95 @@ function App() {
         );
     }
 
-    function verResultado() {
+    function navegarPaginas(offset) {
         window.scrollTo({
-            top: 99999,
+            top: offset,
             behavior: "smooth",
         });
     }
 
+    function changePage(e) {
+        debugger
+        if (e.deltaY > 0) {
+            navegarPaginas(SEGUNDA_PAGINA);
+        } else {
+            navegarPaginas(PRIMEIRA_PAGINA);
+        }
+    }
+
     return (
         <>
-            {tracker && <Loader />}
+            {/* {tracker && <Loader />} */}
+            <div onWheel={changePage} className="meg__page-all">
+                <NavBar setTipoConfiguracao={setTipoConfiguracao} />
 
-            {/* criar um componente  */}
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <nav className="navbar navbar-expand-lg navbar-light">
-                            <div className="collapse navbar-collapse">
-                                <ul className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <ModalConfigurar
-                                            setConfiguracao={
-                                                setTipoConfiguracao
-                                            }
-                                            className="nav-link"
-                                        />
-                                    </li>
-                                    <li className="nav-item">
-                                        <ModalComoFunciona className="nav-link" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-
-            <Megasena
-                config={TIPOS_CONFIGURACAO[tipoConfiguracao]}
-                numerosSelecionados={setNumeros}
-            />
-
-            <br />
-            <br />
-
-            <div className="container">
-                <div
-                    className="mx-auto text-center"
-                    style={{
-                        width: 120,
-                        display: totalJogadas ? "none" : "block",
-                    }}
-                >
-                    <button
-                        style={{
-                            borderRadius: 50,
-                            height: 75,
-                            width: 75,
-                        }}
-                        disabled={disabledButtonApostar()}
-                        onClick={jogar}
-                        className="btn btn-success"
-                    >
-                        JOGAR
-                    </button>
-                </div>
-                <div
-                    style={{
-                        display: totalJogadas ? "block" : "none",
-                        width: 120,
-                    }}
-                    className="mx-auto text-center"
-                >
-                    RESULTADO
-                    <br />
-                    <div className="meg__arrow-effect" onClick={verResultado}>
-                        <FaArrowDown size={40} style={{ fill: "black" }} />
-                    </div>
-                </div>
-            </div>
-
-            <br />
-            <br />
-
-            {totalJogadas && (
-                <Resultado
-                    totalJogadas={totalJogadas}
-                    numeros={numeros}
-                    numerosMaisSorteados={numerosMaisSorteados}
+                <Megasena
+                    config={TIPOS_CONFIGURACAO[tipoConfiguracao]}
+                    numerosSelecionados={setNumeros}
                 />
-            )}
+
+                <div className="container">
+                    <div
+                        className="mx-auto text-center"
+                        style={{
+                            width: 120,
+                            display: totalJogadas ? "none" : "block",
+                        }}
+                    >
+                        <button
+                            style={{
+                                borderRadius: 50,
+                                height: 75,
+                                width: 75,
+                            }}
+                            disabled={disabledButtonApostar()}
+                            onClick={jogar}
+                            className="btn btn-success"
+                        >
+                            JOGAR
+                        </button>
+                    </div>
+                    <div
+                        style={{
+                            display: totalJogadas ? "block" : "none",
+                            width: 120,
+                        }}
+                        className="mx-auto text-center"
+                    >
+                        RESULTADO
+                        <br />
+                        <div
+                            className="meg__arrow-effect"
+                            onClick={() => navegarPaginas(SEGUNDA_PAGINA)}
+                        >
+                            <FaArrowDown size={40} style={{ fill: "black" }} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* {totalJogadas && (
+                <div onWheel={changePage} className="meg__page-all">
+                    <Resultado
+                        totalJogadas={totalJogadas}
+                        numeros={numeros}
+                        numerosMaisSorteados={numerosMaisSorteados}
+                    />
+                </div>
+            )} */}
+
+            <div
+                onWheel={changePage}
+                className={"meg__page-all " + (totalJogadas ? "" : "d-none")}
+            >
+                {totalJogadas && (
+                    <Resultado
+                        totalJogadas={totalJogadas}
+                        numeros={numeros}
+                        numerosMaisSorteados={numerosMaisSorteados}
+                    />
+                )}
+            </div>
         </>
     );
 }

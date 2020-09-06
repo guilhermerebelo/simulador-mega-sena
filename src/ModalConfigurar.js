@@ -72,7 +72,7 @@ function ModalComoFunciona(props) {
                 </div>
             </Modal>
             <a
-                className={props.className}
+                className="nav-link"
                 style={{ cursor: "pointer" }}
                 onClick={() => toggleModal(!isModalOpen)}
             >

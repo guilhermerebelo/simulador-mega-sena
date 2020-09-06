@@ -52,7 +52,6 @@ function Resultado(props) {
 
     return (
         <>
-            {/* nemeros apostados */}
             <p className="text-center">{props.numeros.join(", ")}</p>
 
             <div className="container">

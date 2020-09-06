@@ -3,7 +3,7 @@ import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Modal from "./Modal";
 
-function ModalComoFunciona(props) {
+function ModalComoFunciona() {
     const [isModalOpen, toggleModal] = useState(false);
 
     return (
@@ -27,7 +27,7 @@ function ModalComoFunciona(props) {
                 </p>
             </Modal>
             <a
-                className={props.className}
+                className="nav-link"
                 style={{ cursor: "pointer" }}
                 onClick={() => toggleModal(!isModalOpen)}
             >
