@@ -4,12 +4,12 @@
 
 /* megasena */
 .meg__container {
-    min-width: 550px;
+    padding-top: 5px;
+    min-width: 500px;
     border: 1px solid rgb(233, 233, 233);
 }
 
 .meg__header {
-    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,7 +24,8 @@
 
 .meg__cel {
     border: none;
-    height: 40px;
+    height: 38px;
+    width: 60px;
     flex: 1;
     background-color: rgb(240, 240, 240);
     margin: 5px;
@@ -66,3 +67,13 @@ svg rect {
 .Toastify__toast--success {
     background: #218838 !important;
  }
+
+ .meg__arrow-effect {
+    position: relative;
+    animation: arrow 0.9s infinite;
+ }
+
+ @keyframes arrow {
+    from {top: 0px;}
+    to {top: 20px;}
+  }

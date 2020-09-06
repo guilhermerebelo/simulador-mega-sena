@@ -60,14 +60,14 @@ function ModalComoFunciona(props) {
                         // disabled={!configuracao}
                         onClick={salvar}
                     >
-                        Salvar
+                        SALVAR
                     </button>
                     <button
                         type="button"
                         class="btn btn-light"
                         onClick={() => toggleModal(false)}
                     >
-                        Cancelar
+                        CANCELAR
                     </button>
                 </div>
             </Modal>

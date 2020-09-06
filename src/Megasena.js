@@ -88,13 +88,19 @@ function Megasena(props) {
     return (
         <>
             <div className="container meg__container">
-                <div className="meg__header">
-                    <h4 className="text-success">
-                        ESCOLHA SEUS NÚMEROS DA SORTE
-                    </h4>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="meg__header">
+                            <h4 className="text-success">
+                                ESCOLHA SEUS NÚMEROS DA SORTE
+                            </h4>
+                        </div>
+                        <div className="text-center">
+                            {numeros.join(", ") || "-"}
+                        </div>
+                        <div>{buildGame()}</div>
+                    </div>
                 </div>
-                <div>{buildGame()}</div>
-                <div>{numeros}</div>
             </div>
         </>
     );
