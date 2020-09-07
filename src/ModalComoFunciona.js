@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaInfoCircle } from "react-icons/fa";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Modal from "./Modal";
@@ -31,7 +32,7 @@ function ModalComoFunciona() {
                 style={{ cursor: "pointer" }}
                 onClick={() => toggleModal(!isModalOpen)}
             >
-                como funciona
+                <FaInfoCircle /> como funciona
             </a>
         </>
     );

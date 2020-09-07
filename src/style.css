@@ -35,19 +35,19 @@ body {
     height: 38px;
     width: 60px;
     flex: 1;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(246, 246, 247);
     margin: 5px;
-    border: 3px solid rgb(240, 240, 240);
+    border: 2px solid rgb(246, 246, 247);
 }
 
 .meg__cel_mark {
-    border: 3px solid rgb(255, 208, 0) !important;
-    background-color: rgb(224, 224, 224);
+    border: 2px solid rgb(255, 208, 0) !important;
+    background-color: rgb(255, 255, 255);
 }
 
 .meg__cel:hover {
     transition: 0.2s;
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(255, 255, 255);
 }
 
 .meg__cel:focus,

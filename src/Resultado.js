@@ -1,4 +1,8 @@
 import React, { useRef, useEffect } from "react";
+import { FaInfoCircle } from "react-icons/fa";
+
+import { Emoji } from "emoji-mart";
+
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -6,6 +10,14 @@ import Chart from "chart.js";
 
 const TOTAL_SEMANAS_ANO = 52.1429;
 const TOTAL_JOGOS_SEMANA_MEGA_SENA = 2;
+
+function InfoIcon(props) {
+    return (
+        <>
+            <FaInfoCircle style={{ fill: "black" }} />
+        </>
+    );
+}
 
 function Resultado(props) {
     const chartRef = useRef(null);
@@ -50,52 +62,129 @@ function Resultado(props) {
         });
     }
 
+    function buscarNumerosAcertouPrimeiraJogada() {
+        let numerosAcertou = props.primeiroNumeroSorteado.filter((numero) => {
+            return props.numeros.includes(numero);
+        });
+
+        if (numerosAcertou.length) {
+            return ` Você acertou:  ${numerosAcertou.join(", ")}`;
+        }
+
+        return " Não acertou nenhum número";
+    }
+
+    function recarregar() {
+        window.location.reload();
+    }
+
+    function verificarSeGanhou() {
+        if (buscarNumerosAcertouPrimeiraJogada().length === 6) {
+            return (
+                <>
+                    <Emoji emoji=":money_mouth_face:" size={35} />
+                    <Emoji emoji=":money_mouth_face:" size={35} />
+                    {"  "} VOCÊ GANHOU {"  "}
+                    <Emoji emoji=":money_mouth_face:" size={35} />
+                    <Emoji emoji=":money_mouth_face:" size={35} />
+                </>
+            );
+        }
+
+        return (
+            <>
+                <Emoji emoji=":money_with_wings:" size={35} />
+                <Emoji emoji=":money_with_wings:" size={35} />
+                {"  "} VOCÊ PERDEU {"  "}
+                <Emoji emoji=":money_with_wings:" size={35} />
+                <Emoji emoji=":money_with_wings:" size={35} />
+            </>
+        );
+    }
+
     return (
         <>
-            <p className="text-center">{props.numeros.join(", ")}</p>
-
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                        <canvas ref={chartRef} />
-                    </div>
-                    <div className="col-md-6">
-                        <div
-                            style={{
-                                display: props.totalJogadas ? "block" : "none",
-                            }}
-                        >
-                            <p>
-                                Você precisaria jogar{" "}
-                                {props.totalJogadas.toLocaleString("pt-BR")}{" "}
-                                vezes para ganhar com esses números
-                            </p>
-                            <p>
-                                Você gastaria{" "}
-                                {(props.totalJogadas * 4.5).toLocaleString(
-                                    "pt-BR",
-                                    {
-                                        style: "currency",
-                                        currency: "BRL",
-                                    }
-                                )}{" "}
-                                para ganhar
-                            </p>
-                            <p>
-                                Voce precisaria de{" "}
-                                {(
-                                    props.totalJogadas /
-                                    TOTAL_JOGOS_SEMANA_MEGA_SENA /
-                                    TOTAL_SEMANAS_ANO
-                                ).toFixed(2)}{" "}
-                                anos para ganhar
-                            </p>
+            <div className="container h-100">
+                <div className="row h-100 justify-content-center align-items-center">
+                    <div className="row">
+                        <div className="col-md-12 text-center">
+                            <h1>{verificarSeGanhou()}</h1>
                         </div>
-                        <button
-                            className="btn btn-success"
-                        >
-                            JOGAR NOVAMENTE
-                        </button>
+                        <div className="col-md-12 text-center">
+                            <h2>
+                                <span className="badge badge-success">
+                                    {props.numeros.join(", ")}
+                                </span>
+                            </h2>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div className="col-md-7">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">
+                                        Números mais sorteados
+                                    </h5>
+                                    <p className="card-body">
+                                        <canvas ref={chartRef} />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-5">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h5 className="card-title">Estatísticas</h5>
+                                    <div className="card-body">
+                                        <p>
+                                            <InfoIcon />{" "}
+                                            {props.primeiroNumeroSorteado.join(
+                                                ", "
+                                            )}{" "}
+                                            foram os números sorteados
+                                        </p>
+                                        <p>
+                                            <InfoIcon />
+                                            {buscarNumerosAcertouPrimeiraJogada()}
+                                        </p>
+                                        <p>
+                                            <InfoIcon /> Você precisaria jogar{" "}
+                                            {props.totalJogadas.toLocaleString(
+                                                "pt-BR"
+                                            )}{" "}
+                                            vezes para ganhar com esses números
+                                        </p>
+                                        <p>
+                                            <InfoIcon /> Você gastaria{" "}
+                                            {(
+                                                props.totalJogadas * 4.5
+                                            ).toLocaleString("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL",
+                                            })}{" "}
+                                            para ganhar com esses números
+                                        </p>
+                                        <p>
+                                            <InfoIcon /> Você precisaria de{" "}
+                                            {(
+                                                props.totalJogadas /
+                                                TOTAL_JOGOS_SEMANA_MEGA_SENA /
+                                                TOTAL_SEMANAS_ANO
+                                            ).toFixed(2)}{" "}
+                                            anos para ganhar com esses números
+                                        </p>
+                                        <a
+                                            href="#"
+                                            className="btn btn-light"
+                                            onClick={recarregar}
+                                        >
+                                            Jogar novamente
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

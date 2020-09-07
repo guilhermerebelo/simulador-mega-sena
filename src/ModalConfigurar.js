@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaCog } from "react-icons/fa";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Modal from "./Modal";
@@ -7,20 +8,19 @@ import TIPOS_CONFIGURACAO from "./configuracaoService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CONFIG_TOAST = {
-    position: "bottom-right",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: false,
-};
-
 function ModalComoFunciona(props) {
-    const [configuracao, setConfiguracao] = useState('MEGA_SENA');
+    const [configuracao, setConfiguracao] = useState("MEGA_SENA");
     const [isModalOpen, toggleModal] = useState(false);
 
     const salvar = () => {
-        toast.success("Configuração salva!", CONFIG_TOAST);
-        props.setConfiguracao(configuracao)
+        toast.success("Configuração salva!", {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+        });
+
+        props.setConfiguracao(configuracao);
     };
 
     return (
@@ -36,9 +36,7 @@ function ModalComoFunciona(props) {
                                 type="radio"
                                 name="jogatina"
                                 id={`jogatina${index}`}
-                                onClick={() =>
-                                    setConfiguracao(item.key)
-                                }
+                                onClick={() => setConfiguracao(item.key)}
                                 defaultValue="option1"
                                 defaultChecked={index === 0}
                             />
@@ -56,15 +54,14 @@ function ModalComoFunciona(props) {
                 <div>
                     <button
                         type="button"
-                        class="btn btn-success"
-                        // disabled={!configuracao}
+                        className="btn btn-success"
                         onClick={salvar}
                     >
                         SALVAR
                     </button>
                     <button
                         type="button"
-                        class="btn btn-light"
+                        className="btn btn-light" class="btn btn-light"
                         onClick={() => toggleModal(false)}
                     >
                         CANCELAR
@@ -76,7 +73,7 @@ function ModalComoFunciona(props) {
                 style={{ cursor: "pointer" }}
                 onClick={() => toggleModal(!isModalOpen)}
             >
-                configurar
+                <FaCog /> configurar
             </a>
 
             <ToastContainer position="bottom-left" />

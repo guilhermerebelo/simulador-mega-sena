@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import _ from "lodash";
 
-import { FaArrowDown } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.css";
+
+import { ToastContainer, toast } from "react-toastify";
 
 import TIPOS_CONFIGURACAO from "./configuracaoService";
 
-import Loader from "./Loader";
 import NavBar from "./NavBar";
 import Megasena from "./Megasena";
 import Resultado from "./Resultado";
@@ -19,6 +19,7 @@ function App() {
     const [numeros, setNumeros] = useState([]);
     const [numerosMaisSorteados, setNumerosMaisSorteados] = useState({});
     const [totalJogadas, setTotalJogadas] = useState(0);
+    const [primeiroNumeroSorteado, setPrimeiroNumeroSorteado] = useState([]);
     const [tracker, setTracker] = useState(false);
 
     let numerosSorteados = {};
@@ -39,6 +40,13 @@ function App() {
 
                     salvarNumero(numeroSorteado);
 
+                    if (contadorJogadas === 1) {
+                        setPrimeiroNumeroSorteado((oldArray) => [
+                            ...oldArray,
+                            numeroSorteado,
+                        ]);
+                    }
+
                     if (numeros.includes(numeroSorteado)) {
                         resultados.push(true);
                     }
@@ -51,6 +59,8 @@ function App() {
 
             setTotalJogadas(contadorJogadas);
             setTracker(false);
+            notificar("Processando resultado..");
+            navegarPaginas(SEGUNDA_PAGINA, 2000);
         }, 1000);
     };
 
@@ -66,6 +76,15 @@ function App() {
 
         return numeroSorteado;
     };
+
+    function notificar(messagem) {
+        toast.success(messagem, {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+        });
+    }
 
     function getNumerosMaisSorteados(numerosSorteados) {
         return Object.entries(numerosSorteados)
@@ -85,7 +104,17 @@ function App() {
         );
     }
 
-    function navegarPaginas(offset) {
+    function navegarPaginas(offset, timer) {
+        if (!timer) {
+            scrollTo(offset);
+        }
+
+        setTimeout(() => {
+            scrollTo(offset);
+        }, timer);
+    }
+
+    function scrollTo(offset) {
         window.scrollTo({
             top: offset,
             behavior: "smooth",
@@ -93,7 +122,6 @@ function App() {
     }
 
     function changePage(e) {
-        debugger
         if (e.deltaY > 0) {
             navegarPaginas(SEGUNDA_PAGINA);
         } else {
@@ -103,64 +131,54 @@ function App() {
 
     return (
         <>
-            {/* {tracker && <Loader />} */}
+            <ToastContainer position="bottom-left" />
             <div onWheel={changePage} className="meg__page-all">
                 <NavBar setTipoConfiguracao={setTipoConfiguracao} />
-
-                <Megasena
-                    config={TIPOS_CONFIGURACAO[tipoConfiguracao]}
-                    numerosSelecionados={setNumeros}
-                />
-
+                <br />
+                <br />
                 <div className="container">
-                    <div
-                        className="mx-auto text-center"
-                        style={{
-                            width: 120,
-                            display: totalJogadas ? "none" : "block",
-                        }}
-                    >
-                        <button
-                            style={{
-                                borderRadius: 50,
-                                height: 75,
-                                width: 75,
-                            }}
-                            disabled={disabledButtonApostar()}
-                            onClick={jogar}
-                            className="btn btn-success"
-                        >
-                            JOGAR
-                        </button>
-                    </div>
-                    <div
-                        style={{
-                            display: totalJogadas ? "block" : "none",
-                            width: 120,
-                        }}
-                        className="mx-auto text-center"
-                    >
-                        RESULTADO
-                        <br />
+                    <div className="row justify-content-center align-items-center">
                         <div
-                            className="meg__arrow-effect"
-                            onClick={() => navegarPaginas(SEGUNDA_PAGINA)}
+                            className="col-md-12"
+                            style={{ marginBottom: "20px" }}
                         >
-                            <FaArrowDown size={40} style={{ fill: "black" }} />
+                            <Megasena
+                                config={TIPOS_CONFIGURACAO[tipoConfiguracao]}
+                                numerosSelecionados={setNumeros}
+                            />
+                        </div>
+                        <div className="mx-auto text-center">
+                            <button
+                                disabled={
+                                    disabledButtonApostar() || !!totalJogadas
+                                }
+                                onClick={jogar}
+                                className="btn btn-success"
+                                type="button"
+                            >
+                                {tracker && (
+                                    <>
+                                        <span
+                                            class="spinner-border spinner-border-sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        ></span>
+                                        {"  "}
+                                    </>
+                                )}
+                                JOGAR
+                            </button>{" "}
+                            <button
+                                disabled={!totalJogadas}
+                                className="btn btn-light"
+                                onClick={() => navegarPaginas(SEGUNDA_PAGINA)}
+                            >
+                                RESULTADO
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* {totalJogadas && (
-                <div onWheel={changePage} className="meg__page-all">
-                    <Resultado
-                        totalJogadas={totalJogadas}
-                        numeros={numeros}
-                        numerosMaisSorteados={numerosMaisSorteados}
-                    />
-                </div>
-            )} */}
 
             <div
                 onWheel={changePage}
@@ -171,6 +189,7 @@ function App() {
                         totalJogadas={totalJogadas}
                         numeros={numeros}
                         numerosMaisSorteados={numerosMaisSorteados}
+                        primeiroNumeroSorteado={primeiroNumeroSorteado}
                     />
                 )}
             </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 import ModalComoFunciona from "./ModalComoFunciona";
 import ModalConfigurar from "./ModalConfigurar";
 
@@ -13,11 +14,11 @@ function NavBar(props) {
                     <nav className="navbar navbar-expand-lg navbar-light">
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav ml-auto">
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <ModalConfigurar
                                         setConfiguracao={props.setTipoConfiguracao}
                                     />
-                                </li>
+                                </li> */}
                                 <li className="nav-item">
                                     <ModalComoFunciona />
                                 </li>
