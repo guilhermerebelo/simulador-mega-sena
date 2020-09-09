@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaCog } from "react-icons/fa";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -30,7 +30,7 @@ function ModalComoFunciona(props) {
                 <br />
                 {Object.values(TIPOS_CONFIGURACAO).map((item, index) => {
                     return (
-                        <div className="form-check">
+                        <div className="form-check" key={index}>
                             <input
                                 className="form-check-input"
                                 type="radio"

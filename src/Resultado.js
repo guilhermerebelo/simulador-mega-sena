@@ -175,7 +175,6 @@ function Resultado(props) {
                                             anos para ganhar com esses números
                                         </p>
                                         <a
-                                            href="#"
                                             className="btn btn-light"
                                             onClick={recarregar}
                                         >

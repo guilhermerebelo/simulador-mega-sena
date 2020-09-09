@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 
 import ModalComoFunciona from "./ModalComoFunciona";
@@ -14,6 +14,8 @@ function NavBar(props) {
                     <nav className="navbar navbar-expand-lg navbar-light">
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav ml-auto">
+
+                                {/* TODO bug ao trocar de configuração, deve excluir os numeros selecionados  */}
                                 {/* <li className="nav-item">
                                     <ModalConfigurar
                                         setConfiguracao={props.setTipoConfiguracao}

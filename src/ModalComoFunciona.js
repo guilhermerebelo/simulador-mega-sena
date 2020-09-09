@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";

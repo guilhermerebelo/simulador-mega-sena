@@ -144,7 +144,8 @@ function App() {
                         >
                             <Megasena
                                 config={TIPOS_CONFIGURACAO[tipoConfiguracao]}
-                                numerosSelecionados={setNumeros}
+                                setNumeros={setNumeros}
+                                numeros={numeros}
                             />
                         </div>
                         <div className="mx-auto text-center">
@@ -159,9 +160,9 @@ function App() {
                                 {tracker && (
                                     <>
                                         <span
-                                            class="spinner-border spinner-border-sm"
+                                            className="spinner-border spinner-border-sm"
                                             role="status"
-                                            aria-hidden="true"
+                                            ariaHidden="true"
                                         ></span>
                                         {"  "}
                                     </>
