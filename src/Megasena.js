@@ -9,7 +9,7 @@ function Megasena(props) {
 
     let config = props.config;
 
-    resetSelecionados();
+    // resetSelecionados();
 
     const selecionar = (e) => {
         let numero = parseInt(e.target.innerText);

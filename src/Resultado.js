@@ -68,7 +68,7 @@ function Resultado(props) {
         });
 
         if (numerosAcertou.length) {
-            return ` Você acertou:  ${numerosAcertou.join(", ")}`;
+            return ` Você acertou os números:  ${numerosAcertou.join(", ")}`;
         }
 
         return " Não acertou nenhum número";
