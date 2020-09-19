@@ -13,18 +13,18 @@ function ModalComoFunciona() {
                 <h4>Como funciona</h4>
                 <br />
                 <p>
-                    Selecione os numeros e clique em apostar, o jogo fara uma
+                    Selecione os números e clique em apostar, o jogo fara uma
                     simulação de uma aposta, caso você não saia vencedor, o jogo
-                    ira apostar novamente com os mesmos numeros.. inumeras
-                    vezes.. até acertar todos os numeros!
+                    ira apostar novamente com os mesmos números.. inúmeras
+                    vezes.. até acertar todos os números!
                     <br />
                     <br />
                     Os jogos são feitos de maneira aleatória, simulando a
-                    dificuldade de se ganhar em uma loteria
+                    dificuldade de se ganhar em uma loteria.
                     <br />
                     <br />
-                    Ao final você recebara algumas estatisticas sobre como foi o
-                    desempenho dos numeros escolhidos
+                    Ao final você receberá algumas estatísticas sobre como foi o
+                    desempenho dos números escolhidos.
                 </p>
             </Modal>
             <a
