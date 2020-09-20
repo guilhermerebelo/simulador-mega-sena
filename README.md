@@ -9,4 +9,4 @@ Os jogos são feitos de maneira aleatória, simulando a dificuldade de se ganhar
 
 Ao final você receberá algumas estatísticas sobre como foi o desempenho dos números escolhidos.
 
-Para acessar cliquei [aqui](https://simulador-mega-sena.netlify.app)
+Para acessar clique [aqui](https://simulador-mega-sena.netlify.app)
